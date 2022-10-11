@@ -1,5 +1,5 @@
-import fs from "fs";
 import Link from "next/link";
+import { getFileNames } from '../utils/getFileNames';
 
 interface Props {
   fileNames: string[];
@@ -22,8 +22,6 @@ const Posts = ({ fileNames } : Props) => {
 export default Posts;
 
 export const getStaticProps = () => {
-  const files = fs.readdirSync('__posts');
-  const fileNames = files.map(file => file.split('.')[0]);
-
+  const fileNames = getFileNames();
   return { props: { fileNames } };
 };

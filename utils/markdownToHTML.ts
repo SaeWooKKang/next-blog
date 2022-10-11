@@ -8,7 +8,8 @@ export const markdownToHTML = (md: string) => {
     .use(markdown)
     .use(remark2rehype)
     .use(html)
-    .processSync(md);
+    .processSync(md)
+    .value;
 
   return HTML;
 }
