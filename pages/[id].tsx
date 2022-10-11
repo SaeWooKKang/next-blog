@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { markdownToHTML } from '../utils/markdownToHTML';
 import { createMarkup } from '../utils/createMarkUp';
+import { getFileNames } from '../utils/getFileNames';
 
 interface Props {
   MD_HTML: string;
@@ -12,13 +13,8 @@ const Post = ({ MD_HTML }: Props) => {
 export default Post;
 
 export const getStaticPaths = () => {
-  return {
-    paths: [
-      { params: { id: '1' } },
-      { params: { id: '2' } }
-    ],
-    fallback: false, 
-  }
+  const paths = getFileNames().map(fileName => ({ params: {id: fileName }}));
+  return { paths, fallback: false };
 }
 export const getStaticProps = ({ params }: { params: { id: string } }) => {
   const MD_HTML = getMarkDownToHTML(params.id);
