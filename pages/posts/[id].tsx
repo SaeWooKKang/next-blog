@@ -1,7 +1,7 @@
 import fs from 'fs';
-import { markdownToHTML } from '../utils/markdownToHTML';
-import { createMarkup } from '../utils/createMarkUp';
-import { getFileNames } from '../utils/getFileNames';
+import { markdownToHTML } from '../../utils/markdownToHTML';
+import { createMarkup } from '../../utils/createMarkUp';
+import { getFileNames } from '../../utils/getFileNames';
 
 interface Props {
   MD_HTML: string;

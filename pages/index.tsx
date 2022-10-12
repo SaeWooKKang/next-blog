@@ -10,7 +10,7 @@ const Posts = ({ fileNames } : Props) => {
       {
         fileNames.map((fileName: string, idx: number) => (
           <li key={ idx }>
-            <Link href={`/${ fileName }`}>
+            <Link href={`/posts/${ fileName }`}>
               { fileName }
             </Link>
           </li>
