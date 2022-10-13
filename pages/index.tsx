@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { getFileNames } from '../utils/getFileNames';
 
-interface Props {
-  fileNames: string[];
-}
+export const getStaticProps = () => {
+  const fileNames = getFileNames();
+  return { props: { fileNames } };
+};
+
+interface Props { fileNames: string[]; }
 const Posts = ({ fileNames } : Props) => {
   return (
     <ul>
@@ -21,7 +24,3 @@ const Posts = ({ fileNames } : Props) => {
 }
 export default Posts;
 
-export const getStaticProps = () => {
-  const fileNames = getFileNames();
-  return { props: { fileNames } };
-};
