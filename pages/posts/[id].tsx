@@ -20,12 +20,24 @@ export const getStaticProps = ({ params }: { params: { id: string } }) => {
 const Post = ({ fallback } :{ fallback: { ['api']: string }}) => {
   return (
     <SWRConfig value={{ fallback }}>
-      <Article />
+      <Layout>
+        <Article />
+      </Layout>
     </SWRConfig>
   );
 }
 
 export default Post;
+
+const Layout = ({ children }: {children: JSX.Element}) => {
+  return (
+    <div className='post-layout' style={{ backgroundColor: '#f8f9fb', width: '80%', margin: '0 auto' }}>
+      <div style={{padding: '40px'}}>
+        { children }
+      </div>
+    </div>
+  );
+}
 
 const Article = () => {
   const { query } = useRouter();

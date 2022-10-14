@@ -24,3 +24,10 @@ a {
     background: black;
   }
 }
+ul {
+  padding: 20;
+}
+pre {
+  padding: 15px 10px;
+  background-color: rgb(236, 236, 236);
+}
