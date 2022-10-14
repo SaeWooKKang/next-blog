@@ -1,17 +1,30 @@
 import Link from "next/link";
-import { getFileNames } from '../utils/getFileNames';
+import useSWR, { SWRConfig } from 'swr';
+
+import { fetcher } from "../utils/api";
+import { getPostNames } from '../service/post.service';
 
 export const getStaticProps = () => {
-  const fileNames = getFileNames();
-  return { props: { fileNames } };
+  const fileNames = getPostNames();
+  const key = `/api/posts`;
+  return { props: { fallback: { [key]: fileNames } }};
 };
 
-interface Props { fileNames: string[]; }
-const Posts = ({ fileNames } : Props) => {
+const Posts = ({ fallback } : { fallback: { ['api']: string[] }}) => {
+  return (
+    <SWRConfig value={{ fallback }}>
+     <Title />
+    </SWRConfig>
+  );
+}
+export default Posts;
+
+const Title = () => {
+  const { data } = useSWR('/api/posts', fetcher);
+  
   return (
     <ul>
-      {
-        fileNames.map((fileName: string, idx: number) => (
+      { data.map((fileName: string, idx: number) => (
           <li key={ idx }>
             <Link href={`/posts/${ fileName }`}>
               { fileName }
@@ -22,5 +35,3 @@ const Posts = ({ fileNames } : Props) => {
     </ul>
   );
 }
-export default Posts;
-

@@ -1,32 +1,35 @@
-import fs from 'fs';
-import { markdownToHTML } from '../../utils/markdownToHTML';
+import useSWR, { SWRConfig } from 'swr';
+import { useRouter } from 'next/router';
+
 import { createMarkup } from '../../utils/createMarkUp';
 import { getFileNames } from '../../utils/getFileNames';
+import { fetcher } from '../../utils/api';
+import { getPost } from '../../service/post.service';
 
 export const getStaticPaths = () => {
-  const paths = getFileNames().map(fileName => ({ params: {id: fileName }}));
+  const paths = getFileNames('__posts').map(fileName => ({ params: {id: fileName }}));
   return { paths, fallback: false };
 }
 export const getStaticProps = ({ params }: { params: { id: string } }) => {
-  const MD_HTML = getMarkDownToHTML(params.id);
-  return { props: { MD_HTML } }
+  const post = getPost(params.id);
+  const key = `/api/posts/${ params.id }`;
+
+  return { props: { fallback: { [key]: post } }};
 }
 
-interface Props { MD_HTML: string; }
-const Post = ({ MD_HTML }: Props) => {
-  return <div dangerouslySetInnerHTML={ createMarkup(MD_HTML) } />;
+const Post = ({ fallback } :{ fallback: { ['api']: string }}) => {
+  return (
+    <SWRConfig value={{ fallback }}>
+      <Article />
+    </SWRConfig>
+  );
 }
 
 export default Post;
 
-/**
- * id에 해당하는 .md 파일 읽어와서
- * HTML text로 변환.
- */
-const getMarkDownToHTML = (id: string) => {
-  const markdown = fs.readFileSync(
-    `__posts/${ id }.md`,
-     "utf-8"
-  );
-  return markdownToHTML(markdown);
+const Article = () => {
+  const { query } = useRouter();
+  const { data } = useSWR(`/api/posts/${ query.id }`, fetcher);
+
+  return  <div dangerouslySetInnerHTML={ createMarkup(data) } />;
 }
