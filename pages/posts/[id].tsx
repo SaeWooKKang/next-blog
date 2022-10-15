@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 
 import { createMarkup } from '../../utils/createMarkUp';
 import { getFileNames } from '../../utils/getFileNames';
-import { fetcher } from '../../utils/api';
 import { getPost } from '../../service/post.service';
 
 export const getStaticPaths = () => {
@@ -39,7 +38,7 @@ const Layout = ({ children }: {children: JSX.Element}) => {
 
 const Article = () => {
   const { query } = useRouter();
-  const { data } = useSWR(`/api/posts/${ query.id }`, fetcher);
+  const { data } = useSWR(`/api/posts/${ query.id }`);
 
   return  <div dangerouslySetInnerHTML={ createMarkup(data) } />;
 }

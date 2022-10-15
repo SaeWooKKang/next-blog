@@ -1,7 +1,6 @@
 import Link from "next/link";
 import useSWR from 'swr';
 
-import { fetcher } from "../utils/api";
 import { getPostNames } from '../service/post.service';
 
 export const getStaticProps = () => {
@@ -16,18 +15,17 @@ const Posts = () => {
 export default Posts;
 
 const Title = () => {
-  const { data } = useSWR('/api/posts', fetcher);
+  const { data: Posts } = useSWR('/api/posts');
   
   return (
     <ul>
-      { data.map((fileName: string, idx: number) => (
-          <li key={ idx }>
-            <Link href={`/posts/${ fileName }`}>
-              { fileName }
-            </Link>
-          </li>
-        ))
-      }
+      {Posts.map((fileName: string, idx: number) => (
+        <li key={ idx }>
+          <Link href={`/posts/${ fileName }`}>
+            { fileName }
+          </Link>
+        </li>
+      ))}
     </ul>
   );
 }
