@@ -1,5 +1,5 @@
 import Link from "next/link";
-import useSWR, { SWRConfig } from 'swr';
+import useSWR from 'swr';
 
 import { fetcher } from "../utils/api";
 import { getPostNames } from '../service/post.service';
@@ -10,12 +10,8 @@ export const getStaticProps = () => {
   return { props: { fallback: { [key]: fileNames } }};
 };
 
-const Posts = ({ fallback } : { fallback: { ['api']: string[] }}) => {
-  return (
-    <SWRConfig value={{ fallback }}>
-     <Title />
-    </SWRConfig>
-  );
+const Posts = () => {
+  return <Title />
 }
 export default Posts;
 

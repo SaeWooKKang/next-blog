@@ -1,4 +1,4 @@
-import useSWR, { SWRConfig } from 'swr';
+import useSWR from 'swr';
 import { useRouter } from 'next/router';
 
 import { createMarkup } from '../../utils/createMarkUp';
@@ -17,13 +17,11 @@ export const getStaticProps = ({ params }: { params: { id: string } }) => {
   return { props: { fallback: { [key]: post } }};
 }
 
-const Post = ({ fallback } :{ fallback: { ['api']: string }}) => {
+const Post = () => {
   return (
-    <SWRConfig value={{ fallback }}>
-      <Layout>
-        <Article />
-      </Layout>
-    </SWRConfig>
+    <Layout>
+      <Article />
+    </Layout>
   );
 }
 
