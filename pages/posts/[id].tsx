@@ -1,5 +1,6 @@
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
+import Head from "next/head";
 
 import { createMarkup } from '../../utils/createMarkUp';
 import { getFileNames } from '../../utils/getFileNames';
@@ -37,8 +38,20 @@ const Layout = ({ children }: {children: JSX.Element}) => {
 }
 
 const Article = () => {
-  const { query } = useRouter();
-  const { data } = useSWR(`/api/posts/${ query.id }`);
+  const { id } = useRouter().query;
+  const { data: post } = useSWR(`/api/posts/${ id }`);
 
-  return  <div dangerouslySetInnerHTML={ createMarkup(data) } />;
+  return  (
+    <>
+      <Head>
+        <title>{ post.meta.title }</title>
+
+        <meta name='author' content='pac' />
+        <meta name='description' content={ post.meta.description } />
+        <meta name="keyword" content={ post.meta.keyword }/>
+      </Head> 
+      
+      <article dangerouslySetInnerHTML={ createMarkup( post.html ) } />
+    </>
+  );
 }

@@ -1,6 +1,7 @@
 import { getFileNames } from '../utils/getFileNames';
 import { getFile } from '../utils/getFile';
 import { markdownToHTML } from '../utils/markdownToHTML';
+import matter from "gray-matter";
 
 const getPostFile = (id: string) => {
   return getFile(`__posts/${ id }.md`);
@@ -10,5 +11,8 @@ export const getPostNames = () => {
 }
 export const getPost = (id: string) => {
   const md = getPostFile(id);
-  return markdownToHTML(md);
+  const { content, data: meta } = matter(md);
+  const HTML = markdownToHTML(content);
+
+  return { meta, html: HTML };
 }
