@@ -2,32 +2,32 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 * {
   box-sizing: border-box;
 }
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-}
 ul {
-  padding: 20;
+  margin: 0;
+  padding: 0;
 }
-pre {
-  padding: 15px 10px;
-  background-color: rgb(236, 236, 236);
+li {
+  list-style: none;
+}
+a{
+  text-decoration: none;
+}
+a:link {
+  color : black;
+}
+a:visited {
+  color : black;
+}
+
+/* markdown */
+.post-article pre {
+  border-radius: 6px;
+  padding: 15px 20px;
+  background-color: #f8f9fb;
+  
+  overflow: scroll;
 }

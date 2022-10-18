@@ -6,6 +6,8 @@ import { createMarkup } from '../../utils/createMarkUp';
 import { getFileNames } from '../../utils/getFileNames';
 import { getPost } from '../../service/post.service';
 
+import Layout from '../../components/layout';
+
 export const getStaticPaths = () => {
   const paths = getFileNames('__posts').map(fileName => ({ params: {id: fileName }}));
   return { paths, fallback: false };
@@ -27,16 +29,6 @@ const Post = () => {
 
 export default Post;
 
-const Layout = ({ children }: {children: JSX.Element}) => {
-  return (
-    <div className='post-layout' style={{ backgroundColor: '#f8f9fb', width: '80%', margin: '0 auto' }}>
-      <div style={{padding: '40px'}}>
-        { children }
-      </div>
-    </div>
-  );
-}
-
 const Article = () => {
   const { id } = useRouter().query;
   const { data: post } = useSWR(`/api/posts/${ id }`);
@@ -51,7 +43,10 @@ const Article = () => {
         <meta name="keyword" content={ post.meta.keyword }/>
       </Head> 
       
-      <article dangerouslySetInnerHTML={ createMarkup( post.html ) } />
+      <article 
+        className='post-article'
+        dangerouslySetInnerHTML={ createMarkup( post.html ) } 
+      />
     </>
   );
 }

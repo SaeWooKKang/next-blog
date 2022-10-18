@@ -9,8 +9,8 @@ function MyApp({ Component, pageProps }: AppProps<{ fallback: any }>) {
   return (
     <>
       <Head>
-        <title>Pac&lsquo;s Blog</title>
-      </Head>
+        <title>Saewookkang&lsquo;s Blog</title>
+      </Head>   
       <SWRConfig value={{ fallback }}>
         <Component {...pageProps} />
       </SWRConfig>
