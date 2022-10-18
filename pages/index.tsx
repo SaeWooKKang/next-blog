@@ -5,7 +5,8 @@ import Layout from "../components/layout";
 import { getPostNames } from '../service/post.service';
 
 export const getStaticProps = () => {
-  const fileNames = getPostNames();
+  const fileNames = getPostNames()
+    .sort((name1, name2) => Number(name2.split('_')[0])- Number(name1.split('_')[0]));
   const key = `/api/posts`;
   return { props: { fallback: { [key]: fileNames } }};
 };
@@ -13,6 +14,7 @@ export const getStaticProps = () => {
 const Posts = () => {
   return (
     <Layout>
+      <h1>Latest</h1>
       <Title />
     </Layout>
   );
@@ -23,14 +25,14 @@ const Title = () => {
   const { data: Posts } = useSWR('/api/posts');
   
   return (
-      <ul>
-        {Posts.map((fileName: string, idx: number) => (
-          <li key={ idx }>
-            <Link href={`/posts/${ fileName }`}>
-              { fileName }
-            </Link>
-          </li>
-        ))}
-      </ul>
+    <ul>
+      {Posts.map((fileName: string, idx: number) => (
+        <li key={ idx }>
+          <Link href={`/posts/${ fileName }`}>
+            { fileName.split('_')[1] }
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 }

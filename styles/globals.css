@@ -24,10 +24,18 @@ a:visited {
 }
 
 /* markdown */
+.post-article h1 {
+  margin-bottom: 60px;
+}
 .post-article pre {
   border-radius: 6px;
-  padding: 15px 20px;
-  background-color: #f8f9fb;
+  padding: 25px;
+  background-color: #eee;
   
   overflow: scroll;
+  line-height: 22px;
+  font-size: 14px;
+}
+.post-article p {
+  margin: 20px 0;
 }
