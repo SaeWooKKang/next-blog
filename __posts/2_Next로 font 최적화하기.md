@@ -27,7 +27,7 @@ _document파일에 cdn을 달게 되면 build시 인라인에서 사용한 폰�
 
 아래는 html파일에 포함된 최적화된 폰트 코드 입니다. 
 
-![optimize-font](/assets/blog/font_optimize.png)
+![optimize-font](/assets/blog/font_optimization.png)
 
 폰트 네트워크 요청 단계가 사라져서 지연 시간만큼 빠르게 문서에 입혀지겠네요!
 
