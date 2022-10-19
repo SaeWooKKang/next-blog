@@ -25,14 +25,14 @@ const Title = () => {
   const { data: Posts } = useSWR('/api/posts');
   
   return (
-    <ul>
+    <div>
       {Posts.map((fileName: string, idx: number) => (
-        <li key={ idx }>
+        <article className='title-card' key={ idx }>
           <Link href={`/posts/${ fileName }`}>
-            { fileName.split('_')[1] }
+            <h2>{ fileName.split('_')[1] }</h2>
           </Link>
-        </li>
+        </article>
       ))}
-    </ul>
+    </div>
   );
 }
