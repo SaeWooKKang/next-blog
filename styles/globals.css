@@ -63,5 +63,13 @@ h1 {
   font-size: 14px;
 }
 .post-article p {
-  margin: 20px 0;
+  margin: 13px 0;
+  color: #303030;
+}
+.post-article img {
+  max-width: 500px;
+  max-height: 350px;
+}
+.post-article ol li {
+  list-style: decimal;
 }
