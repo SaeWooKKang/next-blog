@@ -14,7 +14,7 @@ export const getStaticProps = () => {
 const Posts = () => {
   return (
     <Layout>
-      <h1>Latest</h1>
+      <h1 className="orderby-latest">Latest</h1>
       <Title />
     </Layout>
   );

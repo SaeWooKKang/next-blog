@@ -1,15 +1,12 @@
-import { unified } from "unified";
-import markdown from "remark-parse";
-import remark2rehype from "remark-rehype";
-import html from "rehype-stringify";
+import { remark } from "remark";
+import html from "remark-html";
+import remarkPrism from "remark-prism";
 
-export const markdownToHTML = (md: string) => {
-  const HTML = unified()
-    .use(markdown)
-    .use(remark2rehype)
-    .use(html)
-    .processSync(md)
-    .value;
-
-  return HTML;
+export const  markdownToHTML = async (markdown: string) => {
+  const result = await remark()
+    .use(html, { sanitize: false })
+    .use(remarkPrism)
+    .process(markdown);
+  
+  return result.value;
 }

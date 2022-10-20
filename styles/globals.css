@@ -32,14 +32,16 @@ h1 {
   padding: 7px 20px;
   margin-bottom: 20px;
 
-  border-bottom: 1px solid rgb(221, 221, 221);
+  border-bottom: 1px solid rgb(163, 176, 205, 0.37);
+  border-radius: 4px;
+  box-shadow: rgba(33, 35, 38, 0.3) 0px 10px 10px -10px;
   max-width: 550px;
 }
 .title-card:hover {
   cursor: pointer;
 
   box-shadow: 0px 6px 10px 0 rgba(163, 176, 205, 0.37);
-  border-radius: 4px;
+  transition: box-shadow 0.3s ease-in-out;
 }
 .title-card h2 {
   margin: 0;
@@ -54,9 +56,10 @@ h1 {
   border-bottom: 1px solid #c8d2dc;
 }
 .post-article pre {
+  border: 1px solid #d9e0e7;
   border-radius: 6px;
-  padding: 25px;
-  background-color: #eee;
+  /* padding: 25px; */
+  /* background-color: #eee; */
   
   overflow: scroll;
   line-height: 22px;
@@ -72,4 +75,18 @@ h1 {
 }
 .post-article ol li {
   list-style: decimal;
+}
+.post-article ul {
+  margin-left: 20px;
+}
+.post-article ul li {
+  list-style: square;
+}
+.post-article img {
+  filter: drop-shadow(rgba(0, 0, 0, 0.5) 2px 0rem 0.15rem);
+}
+
+/* others */
+.orderby-latest {
+  border-bottom: 1px solid #c8d2dc;
 }

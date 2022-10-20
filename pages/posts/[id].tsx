@@ -12,14 +12,14 @@ export const getStaticPaths = () => {
   const paths = getFileNames('__posts').map(fileName => ({ params: {id: fileName }}));
   return { paths, fallback: false };
 }
-export const getStaticProps = ({ params }: { params: { id: string } }) => {
-  const post = getPost(params.id);
+export const getStaticProps = async ({ params }: { params: { id: string } }) => {
+  const post = await getPost(params.id);
   const key = `/api/posts/${ params.id }`;
-
+  
   return { props: { fallback: { [key]: post } }};
 }
 
-const Post = () => {
+const Post = () => {  
   return (
     <Layout>
       <Article />

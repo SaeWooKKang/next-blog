@@ -9,10 +9,10 @@ const getPostFile = (id: string) => {
 export const getPostNames = () => {
   return getFileNames('__posts');
 }
-export const getPost = (id: string) => {
+export const getPost = async (id: string) => {
   const md = getPostFile(id);
   const { content, data: meta } = matter(md);
-  const HTML = markdownToHTML(content);
+  const HTML = await markdownToHTML(content);
 
   return { meta, html: HTML };
 }
