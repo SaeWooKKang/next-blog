@@ -7,8 +7,6 @@ slug: 'test3'
 keyword: 'highlighter.js, prism.js, ssg, csr, 최적화, next blog, optimization'
 ---
 
-# Next에 code highlighter 적용하기
-
 ## 문제 
 
 처음엔 코드 하이라이터로 많이 쓰이는 highlighter.js를 사용해 보았습니다. 
@@ -47,6 +45,7 @@ const Posts = () => {
 아래는 analyze 라이브러리로 bundle을 확인한 결과입니다. 
 
 ![use_highlighter](/assets/blog/use_highlighter.png)  
+*analyze 라이브러리로 bundle을 확인한 결과*
 
 저는 pre-render 함수에서 코드 하이라이터를 사용하여 빌드 결과물에 포함되지 않길 원했습니다. 
 
@@ -106,6 +105,7 @@ const Posts = ({ post }) => {
 하나의 css 파일을 제외하곤 깔끔하게 제외된 것을 확인할 수 있었습니다 :)
 
 ![remark_nothing_found](/assets/blog/use_prism.png)
+*analyze 라이브러리로 bundle을 확인한 결과*
 
 ### 참고
 

@@ -7,8 +7,6 @@ slug: 'test3'
 keyword: 'next, 프레임워크, font, 최적화, optimization'
 ---
 
-# Next로 font 최적화하기
-
 ## 문제
 
 google font를 cdn으로 사용할 경우의 흐름은 다음과 같습니다. 
@@ -20,6 +18,7 @@ google font를 cdn으로 사용할 경우의 흐름은 다음과 같습니다.
 개발자도구 오른쪽 하단을 보시면 font가 다운받아지면서 문서에 font가 입혀지는것을 볼 수 있습니다.  
 
 ![font-rendering](/assets/blog/font_rendering.gif)
+*개발자도구 네트워크 탭*
 
 ## 해결
 
@@ -77,6 +76,7 @@ body {
 그렇다고 cdn 요청을 안하는건 아닙니다. 여전히 html head에 포함되어 있고, 요청을 합니다.
 
 ![optimize-font](/assets/blog/font_cdn.png)
+*응답받은 폰트 목록*
 
 ### 참고
 - <https://nextjs.org/docs/basic-features/font-optimization>
