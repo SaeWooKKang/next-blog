@@ -32,7 +32,7 @@ export default Post;
 const Article = () => {
   const { id } = useRouter().query;
   const { data: post } = useSWR(`/api/posts/${ id }`);
-
+  
   return  (
     <>
       <Head>
@@ -43,10 +43,15 @@ const Article = () => {
         <meta name="keyword" content={ post.meta.keyword }/>
       </Head> 
       
-      <article 
-        className='post-article'
-        dangerouslySetInnerHTML={ createMarkup( post.html ) } 
-      />
+      <article className='post-article'>
+        <div className='post-article-header'>
+          <div className='date'>{ post.meta.date.split(' ')[0] }</div>
+          <h1>{ post.meta.title }</h1>
+          <h3>{ post.meta.description }</h3>
+        </div>
+        
+        <div dangerouslySetInnerHTML={ createMarkup( post.html ) } />
+      </article>
     </>
   );
 }

@@ -48,8 +48,19 @@ h1 {
   font-size: 1.3rem;
 }
 /* markdown */
-.post-article h1 {
-  margin-bottom: 60px;
+.post-article-header {
+  margin-bottom: 50px;
+}
+.post-article-header h1 {
+ margin: 10px 0;
+}
+.post-article-header h3 {
+  border-bottom: none;
+  font-weight: 300;
+  margin: 0;
+}
+.post-article-header .date {
+  font-weight: 300;
 }
 .post-article h2, h3 {
   padding-bottom: 10px;
@@ -72,6 +83,7 @@ h1 {
 .post-article img {
   max-width: 500px;
   max-height: 350px;
+  filter: drop-shadow(rgba(0, 0, 0, 0.5) 2px 0rem 0.15rem);
 }
 .post-article ol li {
   list-style: decimal;
@@ -82,11 +94,29 @@ h1 {
 .post-article ul li {
   list-style: square;
 }
-.post-article img {
-  filter: drop-shadow(rgba(0, 0, 0, 0.5) 2px 0rem 0.15rem);
+.post-article em {
+  justify-content: center;
+  display: flex;
+  color: #979797;
+  width: 500px;
+  font-size: 14px;
 }
-
+.post-article a {
+  word-wrap: break-word;
+}
 /* others */
 .orderby-latest {
   border-bottom: 1px solid #c8d2dc;
+}
+
+@media (max-width: 680px) {
+  .post-article img {
+    max-width: 80vw;
+  }
+  .post-article em {
+    max-width: 80vw;
+  }
+  .post-article a{
+    max-width: 50vw;
+  }
 }
