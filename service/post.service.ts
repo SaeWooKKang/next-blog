@@ -25,7 +25,13 @@ export const getPost = async (id: string) => {
 
   return { meta, html: HTML };
 }
-export const sortByDescendingForFileName = (name1: string, name2: string)  => {
-  const plusOrMinus = Number(name2.split('_')[0]) - Number(name1.split('_')[0]);
-  return plusOrMinus;
-};
+export const getPostMetas = async () => {
+  const posts = getPostNames().map(fileNames => getPost(fileNames))
+  const posts_meta = await Promise.allSettled(posts)
+    .then(res => res.map((res: any) => res.value.meta))
+    .then(res => res.sort(sortByDescendingForFileName));
+  return posts_meta;
+}
+export const sortByDescendingForFileName = (a: any, b: any) => {
+  return new Date(b.date).getTime() - new Date(a.date).getTime();
+}
