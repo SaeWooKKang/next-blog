@@ -1,13 +1,22 @@
-import { getFileNames } from '../utils/getFileNames';
-import { getFile } from '../utils/getFile';
-import { markdownToHTML } from '../utils/markdownToHTML';
+import { getFile, getFileNames } from '../utils/fs';
 import matter from "gray-matter";
+import { remark } from "remark";
+import html from "remark-html";
+import remarkPrism from "remark-prism";
 
-const getPostFile = (id: string) => {
-  return getFile(`__posts/${ id }.md`);
+export const markdownToHTML = async (markdown: string) => {
+  const result = await remark()
+    .use(html, { sanitize: false })
+    .use(remarkPrism)
+    .process(markdown);
+  
+  return result.value;
 }
 export const getPostNames = () => {
   return getFileNames('__posts');
+}
+const getPostFile = (id: string) => {
+  return getFile(`__posts/${ id }.md`, 'utf-8');
 }
 export const getPost = async (id: string) => {
   const md = getPostFile(id);
@@ -16,3 +25,7 @@ export const getPost = async (id: string) => {
 
   return { meta, html: HTML };
 }
+export const sortByDescendingForFileName = (name1: string, name2: string)  => {
+  const plusOrMinus = Number(name2.split('_')[0]) - Number(name1.split('_')[0]);
+  return plusOrMinus;
+};

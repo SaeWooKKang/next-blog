@@ -2,39 +2,27 @@ import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import Head from "next/head";
 
-import { createMarkup } from '../../utils/createMarkUp';
-import { getFileNames } from '../../utils/getFileNames';
-import { getPost } from '../../service/post.service';
+import { getPost, getPostNames } from '../../service/post.service';
 
 import Layout from '../../components/layout';
 
 export const getStaticPaths = () => {
-  const paths = getFileNames('__posts').map(fileName => ({ params: {id: fileName }}));
+  const paths = getPostNames().map(fileName => ({ params: {id: fileName }}));
   return { paths, fallback: false };
 }
 export const getStaticProps = async ({ params }: { params: { id: string } }) => {
   const post = await getPost(params.id);
-  const key = `/api/posts/${ params.id }`;
+  const KEY = `/api/posts/${ params.id }`;
   
-  return { props: { fallback: { [key]: post } }};
+  return { props: { fallback: { [KEY]: post } }};
 }
 
 const Post = () => {  
-  return (
-    <Layout>
-      <Article />
-    </Layout>
-  );
-}
-
-export default Post;
-
-const Article = () => {
   const { id } = useRouter().query;
   const { data: post } = useSWR(`/api/posts/${ id }`);
-  
-  return  (
-    <>
+
+  return (
+    <Layout>
       <Head>
         <title>{ post.meta.title }</title>
 
@@ -50,8 +38,10 @@ const Article = () => {
           <h3>{ post.meta.description }</h3>
         </div>
         
-        <div dangerouslySetInnerHTML={ createMarkup( post.html ) } />
+        <div dangerouslySetInnerHTML={{ __html: post.html }} />
       </article>
-    </>
+    </Layout>
   );
 }
+
+export default Post;
