@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import Head from "next/head";
+import Comment from '../../components/comment';
 
 import { getPost, getPostNames } from '../../service/post.service';
 
@@ -40,6 +41,8 @@ const Post = () => {
         
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
       </article>
+
+      <Comment />
     </Layout>
   );
 }
