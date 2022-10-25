@@ -1,7 +1,7 @@
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import Head from "next/head";
-import Comment from '../../components/comment';
+import Comment from '../../lib/comment';
 
 import { getPost, getPostNames } from '../../service/post.service';
 
