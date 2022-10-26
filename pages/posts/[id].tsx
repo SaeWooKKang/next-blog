@@ -1,44 +1,50 @@
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
+import Head from "next/head";
+import Comment from '../../lib/comment';
 
-import { createMarkup } from '../../utils/createMarkUp';
-import { getFileNames } from '../../utils/getFileNames';
-import { getPost } from '../../service/post.service';
+import { getPost, getPostNames } from '../../service/post.service';
+
+import Layout from '../../components/layout';
 
 export const getStaticPaths = () => {
-  const paths = getFileNames('__posts').map(fileName => ({ params: {id: fileName }}));
+  const paths = getPostNames().map(fileName => ({ params: {id: fileName }}));
   return { paths, fallback: false };
 }
-export const getStaticProps = ({ params }: { params: { id: string } }) => {
-  const post = getPost(params.id);
-  const key = `/api/posts/${ params.id }`;
-
-  return { props: { fallback: { [key]: post } }};
+export const getStaticProps = async ({ params }: { params: { id: string } }) => {
+  const post = await getPost(params.id);
+  const KEY = `/api/posts/${ params.id }`;
+  
+  return { props: { fallback: { [KEY]: post } }};
 }
 
-const Post = () => {
+const Post = () => {  
+  const { id } = useRouter().query;
+  const { data: post } = useSWR(`/api/posts/${ id }`);
+
   return (
     <Layout>
-      <Article />
+      <Head>
+        <title>{ post.meta.title }</title>
+
+        <meta name='author' content='pac' />
+        <meta name='description' content={ post.meta.description } />
+        <meta name="keyword" content={ post.meta.keyword }/>
+      </Head> 
+      
+      <article className='post-article'>
+        <div className='post-article-header'>
+          <div className='date'>{ post.meta.date.split(' ')[0] }</div>
+          <h1>{ post.meta.title }</h1>
+          <h3>{ post.meta.description }</h3>
+        </div>
+        
+        <div dangerouslySetInnerHTML={{ __html: post.html }} />
+      </article>
+
+      <Comment />
     </Layout>
   );
 }
 
 export default Post;
-
-const Layout = ({ children }: {children: JSX.Element}) => {
-  return (
-    <div className='post-layout' style={{ backgroundColor: '#f8f9fb', width: '80%', margin: '0 auto' }}>
-      <div style={{padding: '40px'}}>
-        { children }
-      </div>
-    </div>
-  );
-}
-
-const Article = () => {
-  const { query } = useRouter();
-  const { data } = useSWR(`/api/posts/${ query.id }`);
-
-  return  <div dangerouslySetInnerHTML={ createMarkup(data) } />;
-}

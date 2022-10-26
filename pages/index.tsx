@@ -1,31 +1,52 @@
 import Link from "next/link";
 import useSWR from 'swr';
 
-import { getPostNames } from '../service/post.service';
+import Layout from "../components/layout";
+import { 
+  getPostMetas,
+} from '../service/post.service';
 
-export const getStaticProps = () => {
-  const fileNames = getPostNames();
-  const key = `/api/posts`;
-  return { props: { fallback: { [key]: fileNames } }};
+const KEY_POST = `/api/posts`;
+
+interface Posts {
+  title: string;
+  date: string;
+  description: string;
+  thumbnail: string;
+  slug: string;
+  keyword: string;
+}
+
+export const getStaticProps = async () => {
+  const posts_meta = await getPostMetas();
+  return { props: {fallback: { [KEY_POST]: posts_meta }}};
 };
 
-const Posts = () => {
-  return <Title />
-}
-export default Posts;
-
-const Title = () => {
-  const { data: Posts } = useSWR('/api/posts');
-  
+const Index = () => {
   return (
-    <ul>
-      {Posts.map((fileName: string, idx: number) => (
-        <li key={ idx }>
-          <Link href={`/posts/${ fileName }`}>
-            { fileName }
-          </Link>
-        </li>
+    <Layout>
+      <h1 className="orderby-latest">Latest</h1>
+      <PostNames />
+    </Layout>
+  );
+}
+export default Index;
+
+const PostNames = () => {
+  const { data: Posts } = useSWR<Posts[]>(KEY_POST);
+  return (
+    <>
+      {Posts!.map((post, idx) => (
+        <article className='title-card' key={ idx }>
+            <>
+              <div className='date'>{ post.date }</div>
+              <Link href={`/posts/${ post.title }`}>
+                <h2 className="title">{ post.title }</h2>
+              </Link>
+              <div className='description'>{ post.description }</div>
+            </>
+        </article>
       ))}
-    </ul>
+    </>
   );
 }
