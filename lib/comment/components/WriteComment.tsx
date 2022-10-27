@@ -12,14 +12,14 @@ import { Loading } from '../index';
 
 interface Props {
   handleComment: Dispatch<SetStateAction<never[]>>
-  comments: any
+  comments: any;
 }
 
 const WriteComment = (props: Props) => {
   const idRef = useRef<HTMLInputElement>(null);
   const commentRef = useRef<HTMLTextAreaElement>(null);
-  const [isLoading, setIsLoading] = useState(false);
-
+  const [isCommentLoading, setIsCommentLoading] = useState(false);
+  
   const onSubmitComment: FormEventHandler<HTMLFormElement> = e => {
     e.preventDefault();
     
@@ -37,40 +37,51 @@ const WriteComment = (props: Props) => {
       comment,
       title
     };
- 
+    
+    setIsCommentLoading(true);
+    
     git.createComment(config) 
-      .then(_ => { 
-        idRef.current!.value = '';
-        commentRef.current!.value = '';
-      })
-      .then(_ => {
-        setIsLoading(true);
-        
-        let timerId = setTimeout(async function tick() {
-          const newComments = await git.getComments(title);
-
-          if (newComments.length === props.comments.length) {
-            timerId = setTimeout(tick, 3000);
-          }
-          else {
-            props.handleComment(newComments);
-            setIsLoading(false);
-          }
-          
-        }, 3000);
-
-        setTimeout(() => {
-          clearTimeout(timerId);
-          setIsLoading(false);
-        }, 9000);
-      });
+      .then(resetInput)
+      .then(_ => getAppliedComment(title)); 
   }
+  
+  const resetInput = () => {
+    idRef.current!.value = '';
+    commentRef.current!.value = '';
+  }
+
+  const getAppliedComment = (title: string) => {
+    let timerId = setTimeout(tick, 0);
+
+    async function tick() {
+      const newComments = await git.getComments(title);
+  
+      if (newComments.length === props.comments.length) {
+        timerId = setTimeout(tick, 2000);
+      }
+      else {
+        props.handleComment(newComments);
+        setIsCommentLoading(false);
+        clearTimeout(timerId);
+      }
+    }
+
+    setTimeout(() => {
+      if (isCommentLoading) {
+        clearTimeout(timerId);
+        setIsCommentLoading(false);
+        alert('댓글 가져오기에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+      }
+    }, 12000);
+  }
+
   return (
     <> 
-      { isLoading && <Loading /> }
+      { isCommentLoading && <Loading /> }
 
       <form onSubmit={onSubmitComment}>
         <input 
+          type='text'
           className={style.name}
           placeholder='이름'
           ref={idRef} />
