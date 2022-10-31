@@ -1,7 +1,7 @@
 ---
 title: 'Client-Server간 네트워크 요청 흐름 정리'
 date: '2022-10-31 21:28:00'
-description: 'CSR SSR, MPA, SPA를 이해해보자!'
+description: 'CSR, SSR, MPA, SPA를 이해해보자!'
 thumbnail: /thumbnails/hello-world.jpg
 slug: 'test3'
 keyword: 'CSR, SSR, MPA, SPA, 네트워크, 요청, 흐름, React, Next'
@@ -16,6 +16,7 @@ keyword: 'CSR, SSR, MPA, SPA, 네트워크, 요청, 흐름, React, Next'
 - [MPA 기반 SSR](#MPA-기반-SSR)
 - [SPA 기반 CSR](#SPA-기반-CSR)
 - [SPA 기반 SSR](#SPA-기반-SSR)
+- [장단점 정리](#장단점-정리)
 
 
 ## 용어 설명
@@ -23,11 +24,11 @@ keyword: 'CSR, SSR, MPA, SPA, 네트워크, 요청, 흐름, React, Next'
 
 #### MPA(Multiple Page Application)
 ```
-html 파일이 여러개인 애플리케이션 입니다.
+html 파일이 여러개인 애플리케이션입니다.
 ```
 #### SPA(Single Page Application)
 ```
-html 파일이 하나인 애플리케이션 입니다.
+html 파일이 하나인 애플리케이션입니다.
 ```
 #### SSR(Server Side Rendering)
 ```
@@ -37,8 +38,8 @@ html 파일이 하나인 애플리케이션 입니다.
 ```
 변경되는 데이터(상태) 결합을 클라이언트 측에서 합니다.
 ```
-#### Ajax
-**Ajax**(Asynchronous JavaScript And XML)란 js에서 비동기 방식으로 
+#### Ajax(Asynchronous JavaScript And XML)
+Ajax란 js에서 비동기 방식으로 
 
 서버에 XMLHTTPRequest, fetch, axios를 사용하여 요청하고 응답받아 
 
@@ -107,13 +108,13 @@ React로 예를 들어보겠습니다.
 
 해당 script의 src 속성의 주소로 서버로 JS를 요청(3번) 합니다. 
 
-서버는 react를 응답해 주고 클라이언트 측에서 JS를 파싱 하며 동적으로 DOM을 생성합니다. 
+서버는 react를 응답해 주고 클라이언트 측에서 JS(리액트)를 파싱 하며 동적으로 DOM을 생성합니다. 
 
 DOM의 생성이 완료되면(React가 mount 되면), 
 
 리액트의 생명주기 메서드인 componentDidMount(useEffect)가 실행되고
 
-해당 메서드 내에서 작성된 데이터에 대한 비동기 요청(5번)을 보냅니다.
+해당 메서드 내에서 작성된 데이터에 대한 비동기 요청(6번)을 보냅니다.
 
 응답받은 데이터를 useState 훅을 사용하여 상태로 저장하면 
 
@@ -121,7 +122,7 @@ DOM의 생성이 완료되면(React가 mount 되면),
 
 이후 모든 사용자 인터렉션은 추가적인 html을 요청 및 응답받지 않고,
 
-4번에서 응답받은 JS를 이용하여 DOM을 생성 합니다.
+4번에서 응답받은 JS를 이용하여 DOM을 생성 합니다. 
 
 또한 변경되는 데이터는 클라이언트 측에서 Ajax 방식으로 페이지를 동적으로 변경시킵니다. 
 
@@ -129,7 +130,7 @@ DOM의 생성이 완료되면(React가 mount 되면),
 최초 방문 시 응답받은 html 파일(2번)은 비어있으므로 검색엔진이 수집할 만한 데이터가 거의 없습니다. 따라서 SEO 최적화가 어렵습니다. 
 
 #### 추가로 알면 좋은것
-react에서 a의 click 이벤트 핸들러에 e.preventDefault로 브라우저의 html 요청에 대한 기본 동작을 막는 이유는 
+react에서 a 태그의 click 이벤트 핸들러에 e.preventDefault로 브라우저의 html 요청에 대한 기본 동작을 막는 이유는 
 
 React는 SPA 기반이고, 이미 4번에서 모든 html을 그릴 수 있는 JS 코드를 받아왔기 때문에
 
@@ -147,7 +148,7 @@ React는 SPA 기반이고, 이미 4번에서 모든 html을 그릴 수 있는 JS
 6. 유저의 새로운 요청(Ajax)
 7. JSON 응답
 
-최초 방문 시 서버는 해당 URL에 해당하는 html에 데이터(상태)를 결합(2번)하여 html을 응답해 줍니다. 
+최초 방문 시 서버는 사용자가 요청한 URL에 해당하는 html에 데이터(상태)를 결합(2번)하여 html을 응답해 줍니다. 
 
 응답받은 html을 브라우저에서 렌더링을 하여 클라이언트는 페이지를 빠르게 볼 수 있지만,
 
@@ -159,3 +160,17 @@ React는 SPA 기반이고, 이미 4번에서 모든 html을 그릴 수 있는 JS
 이후 응답받은 JS가 hydration되어 유저의 인터렉션에 반응할 수 있는 상태가 됩니다. 
 
 이후의 모든 클라이언트 요청에 대해선 5번에서 받은 JS로 DOM을 생성하고, 변경되는 데이터는 Ajax 방식을 사용합니다.
+
+## 장단점 정리 
+
+SSR 방식의 '장점'은 서버 측에서 데이터를 결합하여 **완성된 html**을 응답해 주므로 
+
+검색 엔진 최적화가 가능하고, FCP(First Contentful Paint)가 빠르다는 장점이 있습니다. 
+
+SSR 방식의 '단점'으로는 TTV(Time To view)와 TTI(Time To Interaction)가 달라서 JS가 입혀지기 전까진
+
+사용자의 인터렉션에 응답할 수 없습니다. 
+
+CSR 방식의 '장점'은 TTV == TTI가 같다는 점과 CDN을 통한 TTFB(Time to First Byte)가 빠르다는 점, JS로 DOM을 동적으로 생성하므로 페이지 전환이 부드러워 사용자 경험이 좋다는 점이 있습니다. 
+
+CSR 방식의 '단점'으로는 검색엔진 최적화가 어렵고, JS bundle 크기가 크다면 사용자는 JS를 다운받고, 파싱 될 때까지 흰 화면을 오래 봐야 하고 이 때문에 FCP가 느리다는 단점이 있습니다. 따라서 최적화를 통해 초기 bundle 크기를 줄이는 것이 중요합니다.
