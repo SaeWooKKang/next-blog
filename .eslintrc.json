@@ -1,3 +1,43 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "airbnb",
+    "airbnb-typescript"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "overrides": [
+    {
+      "files": [
+        "./src/*.ts",
+        "./src/*.tsx"
+      ],
+      "plugins": []
+    }
+  ],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "import/prefer-default-export": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "react/button-has-type": "warn",
+    "jsx-a11y/alt-text": "warn",
+    "@typescript-eslint/no-shadow": "warn",
+    "react/destructuring-assignment": "warn",
+    "react/jsx-props-no-spreading": "off",
+    "max-len": [
+      "warn",
+      {
+        "code": 80,
+        "comments": 120,
+        "tabWidth": 2
+      }
+    ],
+    "react/jsx-max-props-per-line": [
+      "warn",
+      {
+        "maximum": 2
+      }
+    ]
+  }
 }
