@@ -4,19 +4,19 @@ interface Props {
   comments: string[];
 }
 
-const WrittenComments = (props: Props) => {
-
+function WrittenComments(props: Props) {
   return (
     <div className={style.wrapper}>
-     {props.comments.map((comment: any) => (
+      {props.comments.map((comment: any) => (
         <div className={style.comment} key={comment.id}>
-          <div className={style.name}> 
-            { comment.title.split('/')[1]}
+          <div className={style.name}>
+            {comment.title.split('/')[1]}
           </div>
           <div className={style.text}>
-             { comment.body }
+            {comment.body}
           </div>
-        </div>))}
+        </div>
+      ))}
     </div>
   );
 }

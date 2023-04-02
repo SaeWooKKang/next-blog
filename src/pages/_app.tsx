@@ -1,5 +1,5 @@
-import { SWRConfig } from "swr";
-import Head from "next/head";
+import { SWRConfig } from 'swr';
+import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import '../styles/globals.css';
 import '../styles/prism-one-light.css';

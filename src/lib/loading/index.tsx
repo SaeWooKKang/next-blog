@@ -1,6 +1,6 @@
-import style from './index.module.css'; 
+import style from './index.module.css';
 
-const Loading = () => {
+function Loading() {
   return (
     <div className={style.wrapper}>
       <div className={style.ldsHourglass} />

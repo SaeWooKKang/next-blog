@@ -1,12 +1,12 @@
-import Link from "next/link";
+import Link from 'next/link';
 import useSWR from 'swr';
 
-import Layout from "../components/layout";
+import Layout from '../components/layout';
 import {
   getPostMetas,
 } from '../service/post.service';
 
-const KEY_POST = `/api/posts`;
+const KEY_POST = '/api/posts';
 
 interface Posts {
   title: string;
@@ -18,42 +18,27 @@ interface Posts {
 }
 
 export const getStaticProps = async () => {
-  const posts_meta = await getPostMetas();
+  const postsMeta = await getPostMetas();
   return {
     props: {
       fallback: {
-        [KEY_POST]: posts_meta
-      }
-    }
+        [KEY_POST]: postsMeta,
+      },
+    },
   };
 };
 
-const Index = () => {
-  return (
-    <Layout>
-      <h1 className="orderby-latest">Latest</h1>
-      <PostNames />
-    </Layout>
-  );
-};
-export default Index;
+function PostNames() {
+  const { data: posts } = useSWR<Posts[]>(KEY_POST);
 
-const PostNames = () => {
-  const { data: Posts } = useSWR<Posts[]>(KEY_POST);
-
-  // if (!Posts) {
-  //   console.log(Posts);
-
-  //   return <div>sorry</div>;
-  // }
   return (
     <div>
-      {Posts?.map((post, idx) => (
+      {posts?.map((post) => (
         <div
-          className='title-card'
-          key={idx}
+          className="title-card"
+          key={post.keyword}
         >
-          <p className='date'>
+          <p className="date">
             {post.date}
           </p>
 
@@ -64,11 +49,21 @@ const PostNames = () => {
             {post.title}
           </Link>
 
-          <div className='description'>
+          <div className="description">
             {post.description}
           </div>
         </div>
       ))}
     </div>
   );
-};
+}
+
+function Index() {
+  return (
+    <Layout>
+      <h1 className="orderby-latest">Latest</h1>
+      <PostNames />
+    </Layout>
+  );
+}
+export default Index;
