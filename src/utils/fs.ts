@@ -1,10 +1,16 @@
 import fs from 'fs';
 
-export const getFile = (path: string, option: any) => fs.readFileSync(path, option);
+type Option = Parameters<typeof fs.readFileSync>['1'];
 
-export const getFileNames = (path: string) => {
-  const files = fs.readdirSync(path);
-  const fileNames = files.map((file) => file.split('.')[0]);
+export class File {
+  static getFile(path: fs.PathLike, option: Option) {
+    return fs.readFileSync(path, option);
+  }
 
-  return fileNames;
-};
+  static getFileNamesInDirectory(path: fs.PathLike) {
+    const files = fs.readdirSync(path);
+    const fileNameWithoutExtension = files.map((file) => file.split('.')[0]);
+
+    return fileNameWithoutExtension;
+  }
+}

@@ -3,17 +3,22 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Comment from '../../lib/comment';
 
-import { getPost, getPostNames } from '../../service/post.service';
+import { PostService } from '../../service/post.service';
 
 import Layout from '../../components/layout';
 
 export const getStaticPaths = () => {
-  const paths = getPostNames()
-    .map((fileName) => ({ params: { id: fileName } }));
+  const paths = PostService.getAllPostNames().map(
+    (fileName) => ({ params: { id: fileName } }),
+  );
+
   return { paths, fallback: false };
 };
-export const getStaticProps = async ({ params }: { params: { id: string; }; }) => {
-  const post = await getPost(params.id);
+
+export const getStaticProps = async (
+  { params }: { params: { id: string; }; },
+) => {
+  const post = await PostService.getPost(params.id);
   const KEY = `/api/posts/${params.id}`;
 
   return { props: { fallback: { [KEY]: post } } };

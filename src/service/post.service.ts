@@ -2,31 +2,43 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 import remarkPrism from 'remark-prism';
-import { getFile, getFileNames } from '../utils/fs';
+import { File } from '../utils/fs';
 
-export const markdownToHTML = async (markdown: string) => {
-  const result = await remark()
-    .use(html, { sanitize: false })
-    .use(remarkPrism)
-    .process(markdown);
+export class PostService {
+  static async markdownToHTML(markdown: string) {
+    const result = await remark()
+      .use(html, { sanitize: false })
+      .use(remarkPrism)
+      .process(markdown);
 
-  return result.value;
-};
-export const getPostNames = () => getFileNames('__posts');
-const getPostFile = (id: string) => getFile(`__posts/${id}.md`, 'utf-8');
-export const getPost = async (id: string) => {
-  const md = getPostFile(id);
-  const { content, data: meta } = matter(md);
-  const HTML = await markdownToHTML(content);
+    return result.value;
+  }
 
-  return { meta, html: HTML };
-};
-export const sortByDescendingForFileName = (a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime();
+  static getAllPostNames() {
+    return File.getFileNamesInDirectory('__posts');
+  }
 
-export const getPostMetas = async () => {
-  const posts = getPostNames().map((fileNames) => getPost(fileNames));
-  const postMetas = await Promise.allSettled(posts)
-    .then((res) => res.map((res: any) => res.value.meta))
-    .then((res) => res.sort(sortByDescendingForFileName));
-  return postMetas;
-};
+  private static getPostFile(id: string) {
+    return File.getFile(`__posts/${id}.md`, 'utf-8');
+  }
+
+  static async getPost(id: string) {
+    const md = this.getPostFile(id);
+    const { content, data: meta } = matter(md);
+    const HTML = await this.markdownToHTML(content);
+
+    return { meta, html: HTML };
+  }
+
+  private static sortByDescendingForFileName(a: any, b: any) {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  }
+
+  static async getPostMetas() {
+    const posts = PostService.getAllPostNames().map((fileNames) => PostService.getPost(fileNames));
+    const postMetas = await Promise.allSettled(posts)
+      .then((res) => res.map((res: any) => res.value.meta))
+      .then((res) => res.sort(PostService.sortByDescendingForFileName));
+    return postMetas;
+  }
+}

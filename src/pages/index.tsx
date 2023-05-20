@@ -3,7 +3,7 @@ import useSWR from 'swr';
 
 import Layout from '../components/layout';
 import {
-  getPostMetas,
+  PostService,
 } from '../service/post.service';
 
 const KEY_POST = '/api/posts';
@@ -18,7 +18,8 @@ interface Posts {
 }
 
 export const getStaticProps = async () => {
-  const postsMeta = await getPostMetas();
+  const postsMeta = await PostService.getPostMetas();
+
   return {
     props: {
       fallback: {
@@ -66,4 +67,5 @@ function Index() {
     </Layout>
   );
 }
+
 export default Index;
