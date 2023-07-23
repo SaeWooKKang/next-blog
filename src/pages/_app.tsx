@@ -13,10 +13,14 @@ function MyApp({ Component, pageProps }: AppProps<{ fallback: any; }>) {
   const router = useRouter();
 
   useEffect(() => {
+    if (process.env.NODE_ENV !== 'production') return;
+
     const handleRouteChange = (url: string) => {
       gtag.pageview(url);
     };
+
     router.events.on('routeChangeComplete', handleRouteChange);
+
     return () => {
       router.events.off('routeChangeComplete', handleRouteChange);
     };
@@ -27,25 +31,30 @@ function MyApp({ Component, pageProps }: AppProps<{ fallback: any; }>) {
       <Head>
         <title>Saewookkang&lsquo;s Blog</title>
 
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-
-              gtag('config', '${gtag.GA_TRACKING_ID}', {
-                page_path: window.location.pathname,
-              });
-            `,
-          }}
-        />
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+  
+                gtag('config', '${gtag.GA_TRACKING_ID}', {
+                  page_path: window.location.pathname,
+                });
+              `,
+              }}
+            />
+            <Script
+              strategy="afterInteractive"
+              src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+            />
+          </>
+        )}
       </Head>
 
-      <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
-      />
+
       <SWRConfig value={{ fallback }}>
         <Component {...pageProps} />
       </SWRConfig>
