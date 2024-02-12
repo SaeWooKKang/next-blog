@@ -148,6 +148,12 @@ h3 {
   word-wrap: break-word;
 }
 
+.post-article code {
+  background-color: rgb(250, 234, 203);
+  border-radius: 2px;
+  padding: 0 4px;
+}
+
 /* others */
 .orderby-latest {
   border-bottom: 1px solid #c8d2dc;
