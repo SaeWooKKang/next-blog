@@ -116,6 +116,8 @@ h3 {
 .post-article p {
   margin: 13px 0;
   color: #303030;
+
+  line-height: 1.4;
 }
 
 .post-article img {
