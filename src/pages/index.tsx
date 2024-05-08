@@ -33,29 +33,32 @@ function PostNames() {
   const { data: posts } = useSWR<Posts[]>(KEY_POST);
 
   return (
-    <div>
+    <ul>
       {posts?.map((post) => (
-        <div
+        <li
           className="title-card"
           key={post.keyword}
         >
-          <p className="date">
-            {post.date}
-          </p>
-
           <Link
             href={`/posts/${post.title}`}
-            className="title"
           >
-            {post.title}
-          </Link>
+            <p className="date">
+              {post.date}
+            </p>
 
-          <div className="description">
-            {post.description}
-          </div>
-        </div>
+            <h2
+              className="title"
+            >
+              {post.title}
+            </h2>
+
+            <div className="description">
+              {post.description}
+            </div>
+          </Link>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
