@@ -1,9 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import email from 'public/assets/icons/email.png';
+import github from 'public/assets/icons/github.png';
 import style from './index.module.css';
-
-import email from '../../../public/assets/icons/email.png';
-import github from '../../../public/assets/icons/github.png';
 
 type Props = {
   children: React.ReactNode;

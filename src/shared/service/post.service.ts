@@ -2,7 +2,7 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 import remarkPrism from 'remark-prism';
-import { File } from '../utils/fs';
+import { File } from '../../common/util/fs';
 
 export class PostService {
   static async markdownToHTML(markdown: string) {

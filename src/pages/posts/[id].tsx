@@ -1,11 +1,11 @@
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import Comment from '../../lib/comment';
 
-import { PostService } from '../../service/post.service';
+import { PostService } from '../../shared/service/post.service';
 
-import Layout from '../../components/layout';
+import Layout from '../../shared/component/layout';
+import Comment from './component/comment';
 
 export const getStaticPaths = () => {
   const paths = PostService.getAllPostNames().map(

@@ -1,12 +1,12 @@
 import { SWRConfig } from 'swr';
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
-import '../styles/globals.css';
-import '../styles/prism-one-light.css';
+import '../style/globals.css';
+import '../style/prism-one-light.css';
 import Script from 'next/script';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import * as gtag from '../lib/gtag';
+import * as gtag from '../shared/service/gtag.service';
 
 function MyApp({ Component, pageProps }: AppProps<{ fallback: any; }>) {
   const { fallback } = pageProps;
@@ -53,7 +53,6 @@ function MyApp({ Component, pageProps }: AppProps<{ fallback: any; }>) {
           </>
         )}
       </Head>
-
 
       <SWRConfig value={{ fallback }}>
         <Component {...pageProps} />

@@ -5,10 +5,10 @@ import {
   SetStateAction,
   useState,
 } from 'react';
-import Loading from '../../loading';
 
 import git from '../comment.service';
 import style from '../style/writeComment.module.css';
+import Loading from '../../../../../common/component/loading';
 
 interface Props {
   handleComment: Dispatch<SetStateAction<never[]>>;

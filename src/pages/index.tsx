@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import useSWR from 'swr';
 
-import Layout from '../components/layout';
+import Layout from '../shared/component/layout';
 import {
   PostService,
-} from '../service/post.service';
+} from '../shared/service/post.service';
 
 const KEY_POST = '/api/posts';
 
