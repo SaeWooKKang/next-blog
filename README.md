@@ -11,18 +11,20 @@
 ## 폴더 구조
 
 - 📂common: 도메인에 종속적이지 않은 로직들
-- 📂pages: url 기준으로 폴더 depth를 구성
+- 📂domain: 도메인에 해당하는 로직들
 - 📂shared: 2개 이상의 도메인에서 사용되는 로직들
+- 📂pages: url 기준으로 폴더 depth를 구성
 - 📂styles: 전역적으로 사용하는 스타일
 
 ```
  📦src
+ ┣ 📂domain        # 도메인에 해당하는 로직들
+ ┃ ┗ 📂blog
  ┣ 📂common        # 도메인에 종속적이지 않은 로직들
  ┃ ┣ 📂component
  ┃ ┗ 📂util
  ┣ 📂pages         # url 기준으로 폴더 depth를 구성
  ┃ ┣ 📂posts
- ┃ ┃ ┗ 📂component # 해당 페이지에서 사용하는 컴포넌트(colocation하게 사용하는 페이지에 작성)
  ┃ ┣ 📜_app.tsx
  ┃ ┣ 📜_document.tsx
  ┃ ┗ 📜index.tsx

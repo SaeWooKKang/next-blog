@@ -5,7 +5,7 @@ import Head from 'next/head';
 import { PostService } from '../../shared/service/post.service';
 
 import Layout from '../../shared/component/layout';
-import Comment from './component/comment';
+import Comment from '../../domain/blog/comment';
 
 export const getStaticPaths = () => {
   const paths = PostService.getAllPostNames().map(
