@@ -1,3 +1,11 @@
+---
+name: Improvement suggestion
+about: Suggest an improvement to an existing feature
+title: "[IMPROVEMENT]"
+labels: improvement
+assignees: ""
+---
+
 ## 기능 설명 (Feature Description)
 
 - **기능 요청 요약**:
