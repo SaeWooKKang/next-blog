@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import email from 'public/assets/icons/email.png';
-import github from 'public/assets/icons/github.png';
+
 import style from './index.module.css';
 
 type Props = {
@@ -25,7 +24,7 @@ function Layout({ children }: Props) {
               alt="github"
               width={22}
               height={22}
-              src={github}
+              src="/assets/icons/github.png"
             />
           </a>
           <a href="mailto:pac11.dev@gmail.com">
@@ -33,7 +32,7 @@ function Layout({ children }: Props) {
               alt="email"
               width={22}
               height={22}
-              src={email}
+              src="/assets/icons/email.png"
             />
           </a>
         </div>
