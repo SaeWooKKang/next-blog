@@ -25,6 +25,7 @@
     "@typescript-eslint/no-shadow": "warn",
     "react/destructuring-assignment": "warn",
     "react/jsx-props-no-spreading": "off",
+    "consistent-return": "off",
     "max-len": [
       "warn",
       {
