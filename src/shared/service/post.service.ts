@@ -2,7 +2,15 @@ import matter from 'gray-matter';
 import { remark } from 'remark';
 import html from 'remark-html';
 import remarkPrism from 'remark-prism';
+import path from 'path';
 import { File } from '../../common/util/fs';
+
+type ParsedContent = {
+  meta: Record<string, unknown>;
+  html: string;
+};
+
+const cache: Record<string, ParsedContent> = {};
 
 export class PostService {
   static async markdownToHTML(markdown: string) {
@@ -11,7 +19,7 @@ export class PostService {
       .use(remarkPrism)
       .process(markdown);
 
-    return result.value;
+    return result.toString();
   }
 
   static getAllPostNames() {
@@ -19,15 +27,26 @@ export class PostService {
   }
 
   private static getPostFile(id: string) {
-    return File.getFile(`__posts/${id}.md`, 'utf-8');
+    const filePath = path.join('__posts', `${id}.md`);
+    const fileContent = File.getFile(filePath, 'utf-8');
+
+    return fileContent;
   }
 
   static async getPost(id: string) {
+    if (cache[id]) {
+      return cache[id];
+    }
+
     const md = this.getPostFile(id);
     const { content, data: meta } = matter(md);
     const HTML = await this.markdownToHTML(content);
 
-    return { meta, html: HTML };
+    const parsedContent = { meta, html: HTML };
+
+    cache[id] = parsedContent;
+
+    return parsedContent;
   }
 
   private static sortByDescendingForFileName(a: any, b: any) {
@@ -35,10 +54,13 @@ export class PostService {
   }
 
   static async getPostMetas() {
-    const posts = PostService.getAllPostNames().map((fileNames) => PostService.getPost(fileNames));
+    const posts = PostService.getAllPostNames()
+      .map((fileNames) => PostService.getPost(fileNames));
+
     const postMetas = await Promise.allSettled(posts)
       .then((res) => res.map((res: any) => res.value.meta))
       .then((res) => res.sort(PostService.sortByDescendingForFileName));
+
     return postMetas;
   }
 }
