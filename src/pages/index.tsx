@@ -18,23 +18,23 @@ interface Posts {
 }
 
 export const getStaticProps = async () => {
-  const postsMeta = await PostService.getPostMetas();
+  const postMetaList = await PostService.getPostMetaList();
 
   return {
     props: {
       fallback: {
-        [KEY_POST]: postsMeta,
+        [KEY_POST]: postMetaList,
       },
     },
   };
 };
 
 function PostNames() {
-  const { data: posts } = useSWR<Posts[]>(KEY_POST);
+  const { data: postMetaList } = useSWR<Posts[]>(KEY_POST);
 
   return (
     <ul>
-      {posts?.map((post) => (
+      {postMetaList?.map((post) => (
         <li
           className="title-card"
           key={post.keyword}

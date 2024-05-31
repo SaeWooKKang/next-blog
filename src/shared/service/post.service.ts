@@ -53,9 +53,9 @@ export class PostService {
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   }
 
-  static async getPostMetas() {
+  static async getPostMetaList() {
     const posts = PostService.getAllPostNames()
-      .map((fileNames) => PostService.getPost(fileNames));
+      .map((fileName) => PostService.getPost(fileName));
 
     const postMetas = await Promise.allSettled(posts)
       .then((res) => res.map((res: any) => res.value.meta))
