@@ -1,9 +1,7 @@
 import fs from 'fs';
 
-type Option = Parameters<typeof fs.readFileSync>['1'];
-
 export class File {
-  static getFile(path: fs.PathLike, option: Option) {
+  static getFile(path: fs.PathLike, option: BufferEncoding) {
     return fs.readFileSync(path, option);
   }
 
