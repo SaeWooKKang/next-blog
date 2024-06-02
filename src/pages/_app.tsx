@@ -14,13 +14,14 @@ function MyApp({ Component, pageProps }: AppProps<{ fallback: any; }>) {
       <Head>
         <title>Saewookkang&lsquo;s Blog</title>
 
-        <GoogleAnalytics
-          gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || ''}
-        />
       </Head>
 
       <SWRConfig value={{ fallback }}>
         <Component {...pageProps} />
+
+        <GoogleAnalytics
+          gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || ''}
+        />
       </SWRConfig>
     </>
   );
