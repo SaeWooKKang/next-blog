@@ -34,7 +34,7 @@ function PostNames() {
 
   return (
     <ul>
-      gpt TEST!!
+      gpt TEST222!!
       {posts?.map((post) => (
         <li
           className="title-card"
