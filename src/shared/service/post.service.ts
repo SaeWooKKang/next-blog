@@ -5,13 +5,6 @@ import remarkPrism from 'remark-prism';
 import path from 'path';
 import { File } from '../../common/util/fs';
 
-type ParsedContent = {
-  meta: Record<string, unknown>;
-  html: string;
-};
-
-const cache: Record<string, ParsedContent> = {};
-
 export class PostService {
   static async markdownToHTML(markdown: string) {
     const result = await remark()
@@ -33,18 +26,18 @@ export class PostService {
     return fileContent;
   }
 
-  static async getPost(id: string) {
-    if (cache[id]) {
-      return cache[id];
-    }
+  static async getPostHTML(id: string) {
+    const { html: htmlLikes, meta } = await PostService.getParsedPost(id);
+    const HTML = await PostService.markdownToHTML(htmlLikes);
 
+    return { html: HTML, meta };
+  }
+
+  static async getParsedPost(id: string) {
     const md = this.getPostFile(id);
-    const { content, data: meta } = matter(md);
-    const HTML = await this.markdownToHTML(content);
+    const { data: meta, content } = matter(md);
 
-    const parsedContent = { meta, html: HTML };
-
-    cache[id] = parsedContent;
+    const parsedContent = { meta, html: content };
 
     return parsedContent;
   }
@@ -55,7 +48,7 @@ export class PostService {
 
   static async getPostMetaList() {
     const posts = PostService.getAllPostNames()
-      .map((fileName) => PostService.getPost(fileName));
+      .map((fileName) => PostService.getParsedPost(fileName));
 
     const postMetas = await Promise.allSettled(posts)
       .then((res) => res.map((res: any) => res.value.meta))
