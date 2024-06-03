@@ -3,19 +3,11 @@ import useSWR from 'swr';
 
 import Layout from '../shared/component/layout';
 import {
+  type PostMeta,
   PostService,
 } from '../shared/service/post.service';
 
 const KEY_POST = '/api/posts';
-
-interface Posts {
-  title: string;
-  date: string;
-  description: string;
-  thumbnail: string;
-  slug: string;
-  keyword: string;
-}
 
 export const getStaticProps = async () => {
   const postMetaList = await PostService.getMetaList();
@@ -30,7 +22,7 @@ export const getStaticProps = async () => {
 };
 
 function PostNames() {
-  const { data: postMetaList } = useSWR<Posts[]>(KEY_POST);
+  const { data: postMetaList } = useSWR<Array<PostMeta>>(KEY_POST);
 
   return (
     <ul>

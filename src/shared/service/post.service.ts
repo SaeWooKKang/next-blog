@@ -3,7 +3,19 @@ import { remark } from 'remark';
 import html from 'remark-html';
 import remarkPrism from 'remark-prism';
 import path from 'path';
+import { z } from 'zod';
 import { File } from '../../common/util/fs';
+
+const metaDataSchema = z.object({
+  title: z.string(),
+  date: z.string(),
+  description: z.string(),
+  thumbnail: z.string().optional(),
+  slug: z.string(),
+  keyword: z.string(),
+});
+
+export type PostMeta = z.infer<typeof metaDataSchema>;
 
 export class PostService {
   private static async markdownToHTML(markdown: string) {
@@ -26,12 +38,16 @@ export class PostService {
     const md = this.getPostFile(id);
     const { data: meta, content } = matter(md);
 
-    const parsedContent = { meta, html: content };
+    try {
+      const parsedContent = { meta: metaDataSchema.parse(meta), html: content };
 
-    return parsedContent;
+      return parsedContent;
+    } catch (error) {
+      throw new Error(`ID: ${id}의 메타 데이터 파싱에 실패했습니다. ${error}`);
+    }
   }
 
-  private static sortByDescendingForFileName(a: any, b: any) {
+  private static sortByDescendingForFileName(a:PostMeta, b: PostMeta) {
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   }
 
