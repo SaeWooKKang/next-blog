@@ -18,7 +18,7 @@ interface Posts {
 }
 
 export const getStaticProps = async () => {
-  const postMetaList = await PostService.getPostMetaList();
+  const postMetaList = await PostService.getMetaList();
 
   return {
     props: {

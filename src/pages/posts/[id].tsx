@@ -18,7 +18,7 @@ export const getStaticPaths = () => {
 export const getStaticProps = async (
   { params }: { params: { id: string; }; },
 ) => {
-  const post = await PostService.getPostHTML(params.id);
+  const post = await PostService.getHTML(params.id);
   const KEY = `/api/posts/${params.id}`;
 
   return { props: { fallback: { [KEY]: post } } };
