@@ -22,7 +22,7 @@ jobs:
       - name: yarn 설치
         run: |
           npm install -g yarn
-          echo yarn --version
+          yarn --version
 
       - name: 빌드
         run: |
