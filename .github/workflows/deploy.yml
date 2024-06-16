@@ -24,6 +24,10 @@ jobs:
           npm install -g yarn
           yarn --version
 
+      - name: 패키지 설치
+        run: |
+          yarn install
+
       - name: 빌드
         run: |
           yarn build
