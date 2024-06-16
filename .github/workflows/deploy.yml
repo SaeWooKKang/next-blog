@@ -1,0 +1,28 @@
+name: aws s3 + cloudfront CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Node 설치
+        uses: actions/setup-node@v4
+
+      - name: Github Repository 파일 불러오기
+        uses: actions/checkout@v4
+
+      - name: nvm을 활용한 프로젝트의 Node 설치
+        uses: irby/setup-node-nvm@master
+
+      - name: 의존성 패키지 다운
+        run: |
+          npm install -g yarn
+
+      - name: 빌드
+        run: |
+          yarn build
