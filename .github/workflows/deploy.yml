@@ -19,9 +19,10 @@ jobs:
       - name: nvm을 활용한 프로젝트의 Node 설치
         uses: irby/setup-node-nvm@master
 
-      - name: 의존성 패키지 다운
+      - name: yarn 설치
         run: |
           npm install -g yarn
+          echo yarn --version
 
       - name: 빌드
         run: |
