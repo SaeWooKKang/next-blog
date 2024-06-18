@@ -28,6 +28,11 @@ jobs:
         run: |
           yarn install
 
+      - name: .env 파일 만들기
+        run: |
+          echo 'NEXT_PUBLIC_GOOGLE_ANALYTICS=${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS }}' > .env
+          echo 'NEXT_PUBLIC_API_KEY=${{ secrets.NEXT_PUBLIC_GIT_TOKEN }}' >> .env
+
       - name: 빌드
         run: |
           yarn build
