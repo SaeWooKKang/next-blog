@@ -4,9 +4,13 @@
 
 상태관리는 **SWR**을 사용하였으며,
 
-페이지는 **SSG** 방식,
+페이지는 **SSG** 방식으로 빌드,
 
-배포는 **Vercel**을 사용했습니다.
+배포는 **s3** + **cloudfront**를 사용했습니다.
+
+## CI/CD
+
+<img src="https://github.com/SaeWooKKang/next-blog/assets/87258182/093e042d-76be-4eef-9da7-7dae38ff8d42" height="400px"/>
 
 ## 폴더 구조
 
