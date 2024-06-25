@@ -1,32 +1,13 @@
-import { useState, useEffect } from 'react';
-import git from './comment.service';
-
-import style from './style/index.module.css';
-
-import WrittenComments from './components/WrittenComments';
-import { WriteComment } from './components/WriteComment';
+import { useEffect, useRef } from 'react';
+import { getComments } from './comment.service';
 
 function Comment() {
-  const [comments, setComments] = useState([]);
+  const commentsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const title = git.getPostTitle();
-    git.getComments(title).then(setComments);
+    commentsRef.current?.appendChild(getComments());
   }, []);
 
-  return (
-    <div className={style.commentWrapper}>
-      <h3 className={style.title}>댓글</h3>
-
-      <WrittenComments
-        comments={comments}
-      />
-
-      <WriteComment
-        comments={comments}
-        handleComment={setComments}
-      />
-    </div>
-  );
+  return <section ref={commentsRef} />;
 }
 export default Comment;
