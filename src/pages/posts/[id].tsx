@@ -6,6 +6,7 @@ import { PostService } from '../../shared/service/post.service';
 
 import Layout from '../../shared/component/layout';
 import Comment from '../../domain/blog/comment';
+import { useScrollToTitle } from '../../domain/blog/posting/useScrollToTitle';
 
 export const getStaticPaths = () => {
   const paths = PostService.getAllPostNames().map(
@@ -27,6 +28,7 @@ export const getStaticProps = async (
 function Post() {
   const { id } = useRouter().query;
   const { data: post } = useSWR(`/api/posts/${id}`);
+  useScrollToTitle();
 
   return (
     <Layout>

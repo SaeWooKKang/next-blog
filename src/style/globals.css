@@ -152,6 +152,12 @@ h3 {
   text-decoration: underline;
 }
 
+.post-article ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  
+  padding-bottom: 50px;
 }
 
 .post-article code {
