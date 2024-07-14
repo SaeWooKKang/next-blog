@@ -148,6 +148,10 @@ h3 {
 
 .post-article a {
   word-wrap: break-word;
+  color: #0ea5e9;
+  text-decoration: underline;
+}
+
 }
 
 .post-article code {
