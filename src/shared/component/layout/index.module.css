@@ -15,12 +15,11 @@
   font-family: 'Montserrat', sans-serif;
 }
 .main {
-  width: 100%;
+  max-width: 840px;
   min-height: calc(100% - 200px);
   
-  padding: 0 10%;
-  padding-bottom: 70px;
-  margin-bottom: 60px;
+  margin: 0 auto 60px;
+  padding: 0 20px 70px;
 }
 .footer {
   width: 100%;
