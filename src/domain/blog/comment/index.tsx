@@ -1,13 +1,14 @@
 import { useEffect, useRef } from 'react';
-import { getComments } from './comment.service';
+import { createCommentsScript } from './comment.service';
 
-function Comment() {
-  const commentsRef = useRef<HTMLDivElement>(null);
+function CommentContainer() {
+  const commentsRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    commentsRef.current?.appendChild(getComments());
+    commentsRef.current?.appendChild(createCommentsScript());
   }, []);
 
   return <section ref={commentsRef} />;
 }
-export default Comment;
+
+export default CommentContainer;
