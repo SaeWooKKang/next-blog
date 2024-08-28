@@ -56,11 +56,11 @@ export class PostService {
   }
 
   public static getAllPaths() {
-    return PostService.getAllPostNames().map(((postName) => postName.replaceAll(' ', '-')));
+    return PostService.getAllPostNames().map(((postName) => postName.replaceAll(' ', '_')));
   }
 
   public static async getHTML(id: string) {
-    const parsedPostId = id.replaceAll('-', ' ');
+    const parsedPostId = id.replaceAll('_', ' ');
 
     const { html: htmlLikes, meta } = PostService.parsePost(parsedPostId);
     const HTML = await PostService.markdownToHTML(htmlLikes);
@@ -71,7 +71,7 @@ export class PostService {
   public static async getMetaList() {
     const postsMetaList = PostService.getAllPostNames()
       .map((fileName) => PostService.parsePost(fileName))
-      .map(({ meta }) => ({ ...meta, url: `${meta.title.replaceAll(' ', '-')}` }))
+      .map(({ meta }) => ({ ...meta, url: `${meta.title.replaceAll(' ', '_')}` }))
       .sort(PostService.sortByDescendingForFileName);
 
     return postsMetaList;
