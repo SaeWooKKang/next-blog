@@ -32,7 +32,7 @@ function PostNames() {
           key={post.keyword}
         >
           <Link
-            href={`/posts/${post.title}`}
+            href={`/posts/${post.url}`}
           >
             <p className="date">
               {post.date}

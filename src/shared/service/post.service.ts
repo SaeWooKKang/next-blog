@@ -15,7 +15,7 @@ const metaDataSchema = z.object({
   keyword: z.string(),
 });
 
-export type PostMeta = z.infer<typeof metaDataSchema>;
+export type PostMeta = z.infer<typeof metaDataSchema> & { url: string };
 
 export class PostService {
   private static async markdownToHTML(markdown: string) {
@@ -51,12 +51,18 @@ export class PostService {
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   }
 
-  public static getAllPostNames() {
+  private static getAllPostNames() {
     return File.getFileNamesInDirectory('__posts');
   }
 
+  public static getAllPaths() {
+    return PostService.getAllPostNames().map(((postName) => postName.replaceAll(' ', '-')));
+  }
+
   public static async getHTML(id: string) {
-    const { html: htmlLikes, meta } = PostService.parsePost(id);
+    const parsedPostId = id.replaceAll('-', ' ');
+
+    const { html: htmlLikes, meta } = PostService.parsePost(parsedPostId);
     const HTML = await PostService.markdownToHTML(htmlLikes);
 
     return { html: HTML, meta };
@@ -65,7 +71,7 @@ export class PostService {
   public static async getMetaList() {
     const postsMetaList = PostService.getAllPostNames()
       .map((fileName) => PostService.parsePost(fileName))
-      .map((post) => post.meta)
+      .map(({ meta }) => ({ ...meta, url: `${meta.title.replaceAll(' ', '-')}` }))
       .sort(PostService.sortByDescendingForFileName);
 
     return postsMetaList;

@@ -9,7 +9,7 @@ import Comment from '../../domain/blog/comment';
 import { useScrollToTitle } from '../../domain/blog/posting/useScrollToTitle';
 
 export const getStaticPaths = () => {
-  const paths = PostService.getAllPostNames().map(
+  const paths = PostService.getAllPaths().map(
     (fileName) => ({ params: { id: fileName } }),
   );
 
