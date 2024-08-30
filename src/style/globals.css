@@ -1,10 +1,10 @@
-/* @tailwind base; */ /* TODO: */ 
+@tailwind base; 
 @tailwind components;
 @tailwind utilities;
 
 :root {
   /* layout */
-  --bg-primary: rgba(255, 255, 255, 1);
+  --bg-primary: #F8F9FA;
   --footer-bg: rgba(248, 249, 251);
 
   /* post */
@@ -87,25 +87,7 @@ h1 {
   font-size: 2.2rem;
 }
 
-/* title-card */
-.title-card {
-  padding: 20px;
-  margin-bottom: 20px;
-
-  border-bottom: 1px solid var(--post-border);
-  border-radius: 4px;
-  box-shadow: var(--post-shadow) 0px 10px 10px -10p;
-  max-width: 550px;
-}
-
-.title-card:hover {
-
-  box-shadow: 0px 6px 10px 0 rgb(var(--post-border));
-  transition: box-shadow 0.3s ease-in-out;
-}
-
 .title-card h2 {
-  cursor: pointer;
   margin: 0;
   font-size: 1.6rem;
   font-weight: 500;

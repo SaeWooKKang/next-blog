@@ -7,11 +7,12 @@
   left: 0;
 }
 .header {
-  width: 100%;
+  max-width: 840px;
   height: auto;
 
-  padding: 40px 10%;
-  margin-bottom: 40px;
+  padding: 40px 20px;
+  margin: 0 auto 40px;
+
   font-family: 'Montserrat', sans-serif;
 }
 .main {

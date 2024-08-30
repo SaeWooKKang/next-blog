@@ -9,16 +9,10 @@ type Props = {
 function Layout({ children }: Props) {
   return (
     <div className={style.layout}>
-      <header className={style.header}>
+      <header className="flex justify-between max-w-[840px] h-auto px-5 py-10 mx-auto mb-10 font-['Montserrat',_sans-serif]">
         <Link href="/">saewookkang</Link>
-      </header>
 
-      <main className={style.main}>
-        {children}
-      </main>
-
-      <footer className={style.footer}>
-        <div>
+        <div className="flex">
           <a href="https://github.com/SaeWooKKang" className={style.image}>
             <Image
               alt="github"
@@ -27,7 +21,7 @@ function Layout({ children }: Props) {
               src="/assets/icons/github.png"
             />
           </a>
-          <a href="mailto:pac11.dev@gmail.com">
+          <a href="mailto:lemonade2929@naver.com">
             <Image
               alt="email"
               width={22}
@@ -36,6 +30,13 @@ function Layout({ children }: Props) {
             />
           </a>
         </div>
+      </header>
+
+      <main className={style.main}>
+        {children}
+      </main>
+
+      <footer className={style.footer}>
         <div>saewookkang • ©2022</div>
       </footer>
     </div>

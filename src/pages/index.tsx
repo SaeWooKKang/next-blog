@@ -25,10 +25,10 @@ function PostNames() {
   const { data: postMetaList } = useSWR<Array<PostMeta>>(KEY_POST);
 
   return (
-    <ul>
+    <ul className="flex flex-col gap-[20px]">
       {postMetaList?.map((post) => (
         <li
-          className="title-card"
+          className="title-card py-[20px] border-b border-[var(--post-border)] w-full self-center cursor-pointer"
           key={post.keyword}
         >
           <Link
@@ -57,7 +57,7 @@ function PostNames() {
 function Index() {
   return (
     <Layout>
-      <h1 className="orderby-latest">Latest</h1>
+      <h1 className="orderby-latest mb-[30px]">Posts</h1>
       <PostNames />
     </Layout>
   );
