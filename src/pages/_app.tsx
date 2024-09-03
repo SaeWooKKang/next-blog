@@ -12,8 +12,8 @@ function MyApp({ Component, pageProps }: AppProps<{ fallback: any; }>) {
   return (
     <>
       <Head>
-        <title>Saewookkang&lsquo;s Blog</title>
-
+        <title>새우의 개발 블로그</title>
+        <meta name="description" content="새우의 개발 블로그입니다." />
       </Head>
 
       <SWRConfig value={{ fallback }}>

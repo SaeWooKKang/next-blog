@@ -34,7 +34,7 @@ function Post() {
       <Head>
         <title>{post.meta.title}</title>
 
-        <meta name="author" content="새우깡 (saewookkang)" />
+        <meta name="author" content="새우 (saewoo)" />
         <meta name="description" content={post.meta.description} />
         <meta name="keyword" content={post.meta.keyword} />
       </Head>

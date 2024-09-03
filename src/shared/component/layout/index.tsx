@@ -10,7 +10,7 @@ function Layout({ children }: Props) {
   return (
     <div className={style.layout}>
       <header className="flex justify-between max-w-[840px] h-auto px-5 py-10 mx-auto mb-10 font-['Montserrat',_sans-serif]">
-        <Link href="/">saewookkang</Link>
+        <Link href="/">saewoo</Link>
 
         <div className="flex gap-[20px]">
           <a href="https://github.com/SaeWooKKang" className={style.image}>
@@ -37,7 +37,7 @@ function Layout({ children }: Props) {
       </main>
 
       <footer className={style.footer}>
-        <div>saewookkang • ©2022</div>
+        <div>saewoo • ©2022</div>
       </footer>
     </div>
   );
