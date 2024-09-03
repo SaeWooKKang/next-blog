@@ -33,9 +33,6 @@
 
   background-color: #F2F1EF;
   transform : translateY(-100%);
-  color: #9b9b9b;
+  color: #595959;
   background-color: var(--footer-bg);
-}
-.image {
-  padding-right: 20px;
 }
