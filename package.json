@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && yarn rss",
+    "build": "next build",
+    "postbuild": "node src/scripts/genRss.js",
     "start": "next start",
     "lint": "next lint --fix",
     "analyze": "cross-env ANALYZE=true npm run build",
