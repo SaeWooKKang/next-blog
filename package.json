@@ -9,7 +9,7 @@
     "lint": "next lint --fix",
     "analyze": "cross-env ANALYZE=true npm run build",
     "serve": "serve .next/analyze",
-    "rss": "node ./src/scripts/genRss.js"
+    "rss": "node ./src/scripts/genRSS.js"
   },
   "dependencies": {
     "@next/third-parties": "^14.2.3",
