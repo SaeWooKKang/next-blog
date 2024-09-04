@@ -22,7 +22,10 @@ const generate = async () => {
 
       feed.item({
         title: frontmatter.data.title,
-        url: `/posts/${postFileName.replace(/\.md?/, '')}`,
+        url: `/posts/${postFileName
+          .replace(/\.md?/, '')
+          .replaceAll(' ', '_')
+        }`,
         date: frontmatter.data.date,
         description: frontmatter.data.description,
         categories: frontmatter.data.keyword.split(', '),
