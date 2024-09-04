@@ -31,7 +31,7 @@ const generate = async () => {
     }),
   );
 
-  await fs.writeFile('./public/feed.xml', feed.xml({ indent: true }));
+  await fs.writeFile('./out/feed.xml', feed.xml({ indent: true }));
 };
 
 generate();
