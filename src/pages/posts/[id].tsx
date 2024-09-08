@@ -39,7 +39,7 @@ function Post() {
         <meta name="keyword" content={post.meta.keyword} />
       </Head>
 
-      <div className="post-article">
+      <article className="post-article">
         <div className="post-article-header">
           <div className="date">{post.meta.date.split(' ')[0]}</div>
           <h1>{post.meta.title}</h1>
@@ -47,7 +47,7 @@ function Post() {
         </div>
 
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
-      </div>
+      </article>
 
       <Comment />
     </Layout>
