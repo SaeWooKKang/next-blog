@@ -165,10 +165,10 @@ h3 {
 }
 
 .post-article p {
-  margin: 13px 0;
+  margin: 15px 0;
   color: var( --post-text);
 
-  line-height: 1.4;
+  line-height: 1.6;
 }
 
 .post-article img {
