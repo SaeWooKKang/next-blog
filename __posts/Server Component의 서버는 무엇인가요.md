@@ -135,7 +135,7 @@ This separate environment is the “server” in React Server Components. Server
 그렇다. Server component의 서버는 CI server가 될 수도, 웹 서버일 수도 있는 **별도의 환경**이었다.
 
 ## 아하! App router를 CI server에서 정적 HTML로 빌드하기
-앞서 Next.js에서 App Router의 router handler를 사용해서 rss를 구현했었다. 
+앞서 Next.js에서 App Router의 Router handler를 사용해서 rss를 구현했었다. 
 
 어떻게 웹 서버 없이 빌드 시점에 생성할 수 있었을까? 
 
@@ -147,7 +147,7 @@ This separate environment is the “server” in React Server Components. Server
 
 Next.js에서는 빌드시 Server Component를 정적 HTML로 빌드하는 기능을 [Static Exports](https://nextjs.org/docs/app/building-your-application/deploying/static-exports)를 통해 제공한다.
 
-예전에 학습을 목적으로 [호스팅을 변경하는 작업](https://github.com/SaeWooKKang/next-blog/commit/0b0870fa24ebc1c66ac48765952bd433686be78d)을 진행했는데, 그때 해당 설정을 적용해 두어서 App router를 사용 시 HTML 빌드가 된 것이었다.
+예전에 학습을 목적으로 [호스팅을 변경하는 작업](https://github.com/SaeWooKKang/next-blog/commit/0b0870fa24ebc1c66ac48765952bd433686be78d)을 진행했는데, 그때 해당 설정을 적용해 두어서 App router를 사용 시 HTML로 빌드가 된 것이었다.
 
 ## 마무리
 그간의 경험을 통해 Server Component의 Server가 웹 서버만을 지칭하는 것이 아닌, 
