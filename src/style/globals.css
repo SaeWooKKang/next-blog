@@ -209,10 +209,27 @@ h3 {
   gap: 10px; 
 }
 
+.post-article ol {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+}
+
 .post-article code {
   background-color: var(--post-code);
   border-radius: 2px;
   padding: 0 4px;
+}
+
+.post-article blockquote {
+  margin: 1.5rem 0;
+  padding: 0.5rem 2rem;
+  border-left: 4px solid #4a5568;
+}
+
+.post-article blockquote p {
+  margin: 0;
 }
 
 /* others */
