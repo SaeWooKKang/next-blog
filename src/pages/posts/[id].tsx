@@ -1,7 +1,6 @@
-import useSWR from 'swr';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 
+import type { GetStaticProps, InferGetStaticPropsType } from 'next';
 import { PostService } from '../../shared/service/post.service';
 
 import Layout from '../../shared/component/layout';
@@ -9,26 +8,26 @@ import Comment from '../../domain/blog/comment';
 import { useScrollToTitle } from '../../domain/blog/posting/useScrollToTitle';
 
 export const getStaticPaths = () => {
-  const paths = PostService.getAllPaths().map(
-    (fileName) => ({ params: { id: fileName } }),
-  );
+  const paths = PostService
+    .getAllPaths()
+    .map((fileName) => ({ params: { id: fileName } }));
 
   return { paths, fallback: false };
 };
 
-export const getStaticProps = async (
-  { params }: { params: { id: string; }; },
-) => {
-  const post = await PostService.getHTML(params.id);
-  const KEY = `/api/posts/${params.id}`;
+type PostProps = { post: Awaited<ReturnType<typeof PostService.getHTML>> };
+export const getStaticProps = (async (context) => {
+  if (!context.params || !context.params.id) {
+    return { notFound: true };
+  }
+  const post = await PostService.getHTML(context.params.id as string);
 
-  return { props: { fallback: { [KEY]: post } } };
-};
+  return { props: { post } };
+}) satisfies GetStaticProps<PostProps>;
 
-function Post() {
-  const { id } = useRouter().query;
-  const { data: post } = useSWR(`/api/posts/${id}`);
+function Post({ post }: InferGetStaticPropsType<typeof getStaticProps>) {
   useScrollToTitle();
+
   return (
     <Layout>
       <Head>
